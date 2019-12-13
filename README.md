@@ -1,2 +1,10 @@
 # python-spider-example
 examples about spider implemented by python scripts / python实现和使用爬虫的例子
+https://www.byincd.com/bobjiang/categorization/tag/spider/
+
+## Articles
+* [Python爬虫(一)基础准则和基本概念](https://www.byincd.com/bobjiang/article-0189/)
+* ...
+
+
+#### Continue adding...
