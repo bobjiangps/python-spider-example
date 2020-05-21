@@ -32,4 +32,6 @@ if __name__ == "__main__":
     cw.wait_until_presence_of_element("id", "loginname")
     login(driver, user_name, password)
     cw.wait_until_presence_of_element("xpath", "//ul[@class='gn_nav_list']//a[@class='gn_name']")
+    cookie = [item["name"] + "=" + item["value"] for item in driver.get_cookies()]
+    print(cookie)
     driver.quit()
