@@ -4,14 +4,18 @@ import requests
 class HttpHelper:
 
     default_headers = {"Content-type": "text/html; charset=UTF-8"}
+    proxies = {'https': '106.122.168.244:9999',
+               'http': '46.105.51.183:80'
+               }
 
     @classmethod
-    def get_response_by_url(cls, url, data=None, headers={}):
+    def get_response_by_url(cls, url, data={}, headers={}, verify_ssl=None):
         headers = dict(cls.default_headers, **headers)
-        if data:
-            result = requests.get(url, headers=headers, params=data)
+        if verify_ssl is not None:
+            result = requests.get(url, headers=headers, params=data, verify=verify_ssl)
         else:
-            result = requests.get(url, headers=headers)
+            # result = requests.get(url, headers=headers, proxies=cls.proxies)
+            result = requests.get(url, headers=headers, params=data)
         return result
 
     @classmethod

@@ -16,7 +16,7 @@ if __name__ == "__main__":
     for page in range(pages+1):
         url = "https://www.baidu.com/s?tn=news&rsv_dl=ns_pc&word=%s&pn=%d" % (keyword, page*10)
         additional_header = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:71.0) Gecko/20100101 Firefox/71.0"}
-        response = HttpHelper.get_response_by_url(url, data=None, headers=additional_header)
+        response = HttpHelper.get_response_by_url(url, headers=additional_header)
         if response.status_code == 200:
             result = response.content.decode('utf-8')
             doc = lh.fromstring(result)
@@ -32,7 +32,7 @@ if __name__ == "__main__":
     for page in range(pages+1):
         url = "https://www.baidu.com/s?tn=news&rsv_dl=ns_pc&word=%s&pn=%d" % (keyword, page*10)
         additional_header = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:71.0) Gecko/20100101 Firefox/71.0"}
-        response = HttpHelper.get_response_by_url(url, data=None, headers=additional_header)
+        response = HttpHelper.get_response_by_url(url, headers=additional_header)
         if response.status_code == 200:
             result = response.content.decode('utf-8')
             bs_result = bs(result, "html.parser")
