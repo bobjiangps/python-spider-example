@@ -33,7 +33,7 @@ if __name__ == "__main__":
         else:
             for cn in chapter_nodes:
                 chapter_url = site_url + cn.get("href")
-                chapter_name = cn.text_content().strip().replace(" ", "_").replace("...!", "")
+                chapter_name = cn.text_content().strip().replace(" ", "_").replace("…", "").replace("?", "").replace("!", "").replace("，", "")
                 print(chapter_name)
                 print(chapter_url)
                 if chapter_name in not_crawler_text:
