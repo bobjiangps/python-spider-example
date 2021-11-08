@@ -13,10 +13,11 @@ if __name__ == "__main__":
     img_errors = {}
     img_success = 0
     img_fail = 0
+    img_exist = 0
     not_crawler_text = ["停刊公告"]
 
     comic_name = "海滩女神"
-    site_url = "https://czxhxx.com/"
+    site_url = "https://czxhxx.com"
     comic_suffix = "/manhua/714"
     comic_url = site_url + comic_suffix
     comic_store_path = f"./comic/czxhxx/download/{comic_name}"
@@ -63,13 +64,15 @@ if __name__ == "__main__":
                             img_suffix = img_file_name.split(".")[-1]
                             img_store_path = os.path.join(comic_store_path, chapter_name, f"{chapter_img_id}.{img_suffix}")
                             if os.path.exists(img_store_path):
-                                print(f"file {img_store_path} exists, will not download again")
+                                img_exist += 1
+                                print(f"file {img_store_path} exists, will not download again: {img_exist}")
                             else:
                                 img_response = HttpHelper.get_response_by_url(img_url, headers=additional_header)
                                 if img_response.status_code == 200:
                                     with open(img_store_path, "wb") as f:
                                         f.write(img_response.content)
                                         img_success += 1
+                                        print(f"success:{img_success}")
                                 else:
                                     print(f"get chapter url ({img_url}) failed..")
                                     img_fail += 1
@@ -77,6 +80,7 @@ if __name__ == "__main__":
                                         img_errors[chapter_name] = [img_url]
                                     else:
                                         img_errors[chapter_name].append(img_url)
+                                    print(f"fail:{img_fail}")
                         next_xpath = "//a[@id='nextPage']"
                         next_page_nodes = chapter_doc.xpath(next_xpath)
                         if len(next_page_nodes) == 0:
@@ -87,7 +91,7 @@ if __name__ == "__main__":
     else:
         print(f"get comic url ({comic_url}) failed..")
 
-    print(f"Download Complete...{img_success} images download successful, {img_fail} images download failed...")
+    print(f"Download Complete...{img_exist} images exist, {img_success} images download successful, {img_fail} images download failed...")
     if img_fail:
         print("Please check the following urls which download failed:\n")
         for chapter in img_errors.keys():
